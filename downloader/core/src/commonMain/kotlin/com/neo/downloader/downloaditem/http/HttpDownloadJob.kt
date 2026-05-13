@@ -542,7 +542,6 @@ class HttpDownloadJob(
             }
 
             PartDownloadStatus.Completed -> {
-                destination.onPartCancelled(partDownloader.part)
                 if (getParts().all { it.isCompleted }) {
                     onDownloadFinished()
                 } else {

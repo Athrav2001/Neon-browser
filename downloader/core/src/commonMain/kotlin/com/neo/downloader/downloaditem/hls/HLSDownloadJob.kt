@@ -426,7 +426,6 @@ class HLSDownloadJob(
             }
 
             PartDownloadStatus.Completed -> {
-                destination.onPartCancelled(partDownloader.part)
                 if (getParts().all { it.isCompleted }) {
                     onDownloadFinished()
                 } else {
@@ -567,7 +566,7 @@ class HLSDownloadJob(
             val oldPart = oldPartsMap[newPart.segmentIndex]
             var newPartToAdd = newPart
             if (oldPart != null) {
-                if (oldPart.duration == newPart.duration) {
+                if (oldPart.duration == newPart.duration && oldPart.link == newPart.link) {
                     newPartToAdd = newPart.copy(
                         isCompleted = oldPart.isCompleted
                     )
